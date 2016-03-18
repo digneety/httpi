@@ -15,7 +15,6 @@ module HTTPI
     #   HTTPI::Adapter::Rack.mount 'application', RackApplication
     #   HTTPI.get("http://application/path", :rack)
     class Rack
-      register :rack, :deps => %w(rack/mock)
 
       attr_reader :client
 
