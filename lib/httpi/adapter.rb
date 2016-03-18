@@ -1,6 +1,7 @@
 require "httpi/adapter/httpclient"
 require "httpi/adapter/curb"
 require "httpi/adapter/net_http"
+require "httpi/adapter/rack"
 
 module HTTPI
 
@@ -20,7 +21,7 @@ module HTTPI
       :rack       => { :class => Rack,       :require => "rack" }
     }
 
-    LOAD_ORDER = [:httpclient, :curb, :net_http]
+    LOAD_ORDER = [:httpclient, :curb, :net_http, :rack]
 
     class << self
 
