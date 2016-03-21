@@ -1,10 +1,19 @@
 require "spec_helper"
 require "httpi"
+require 'integration/server'
 
 describe HTTPI do
   let(:client) { HTTPI }
   let(:httpclient) { HTTPI::Adapter.load(:httpclient)[1] }
   let(:curb) { HTTPI::Adapter.load(:curb)[1] }
+
+  before(:all) do
+    HTTPI::Adapter::Rack.mount('example.com', IntegrationServer)
+  end
+
+  after(:all) do
+    HTTPI::Adapter::Rack.unmount('example.com')
+  end
 
   describe ".get(request)" do
     it "executes a GET request using the default adapter" do
@@ -226,7 +235,8 @@ describe HTTPI do
         client_class = {
           :httpclient => lambda { HTTPClient },
           :curb       => lambda { Curl::Easy },
-          :net_http   => lambda { Net::HTTP }
+          :net_http   => lambda { Net::HTTP },
+          :rack       => lambda { Rack }
         }
 
         context "using #{adapter}" do

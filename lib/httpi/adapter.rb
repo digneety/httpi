@@ -12,6 +12,7 @@ module HTTPI
   # * httpclient
   # * curb
   # * net/http
+  # * rack
   module Adapter
 
     ADAPTERS = {
